@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { resgisterRequest, loginRequest, verifyTokenRequest } from "../api/auth";
+import { resgisterRequest, loginRequest, logoutRequest, verifyTokenRequest } from "../api/auth";
 
 export const AuthContext = createContext();
 
@@ -65,10 +65,23 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const logout = async () => {
+        try {
+            await logoutRequest();
+        } catch {
+            // Si falla la petición, igual limpiamos estado local
+        } finally {
+            setUser(null);
+            setIsAuthenticated(false);
+            setErrors([]);
+        }
+    };
+
         return (
             <AuthContext.Provider value={{
                 signup,
                 signin,
+                logout,
                 user,
                 isAuthenticated,
                 errors,
