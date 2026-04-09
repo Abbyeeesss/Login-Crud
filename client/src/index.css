@@ -1,8 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 body {
   background: #202020;
   color: white;
+  margin: 0;
+}
+
+.center-container {
+  display: flex;
+  height: calc(100vh - 100px);
+  align-items: center;
+  justify-content: center;
 }
