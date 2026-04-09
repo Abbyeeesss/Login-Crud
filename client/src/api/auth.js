@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from "./axios.js";
 
-const API_URL = "http://localhost:4000/api";
+export const resgisterRequest = user => axios.post(`/register`, user); 
 
-export const resgisterRequest= user => axios.post(`${API_URL}/register`, user); 
+export const loginRequest = user => axios.post(`/login`, user);
 
-export const loginRequest= user => axios.post(`${API_URL}/login`, user);
+export const verifyTokenRequest = () => axios.get('/verify');
