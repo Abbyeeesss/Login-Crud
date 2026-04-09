@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import {
-  createTaskRequest,
-  deleteTaskRequest,
-  getTasksRequest,
-} from "../api/tasks";
+import { createTaskRequest, getTasksRequest } from "../api/tasks";
 
 function TasksPages() {
   const navigate = useNavigate();
@@ -54,16 +50,6 @@ function TasksPages() {
   const onLogout = async () => {
     await logout();
     navigate("/login", { replace: true });
-  };
-
-  const onDeleteTask = async (id) => {
-    if (!window.confirm("Delete this task?")) return;
-    try {
-      await deleteTaskRequest(String(id));
-      await loadTasks();
-    } catch {
-      window.alert("Could not delete the task.");
-    }
   };
 
   const onSaveTask = handleSubmit(async (data) => {
@@ -141,7 +127,9 @@ function TasksPages() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => onDeleteTask(t._id)}
+                    onClick={() =>
+                      navigate(`/tasks/${String(t._id ?? t.id)}/delete`)
+                    }
                     className="rounded-md border border-red-900/60 bg-red-950/40 px-3 py-1.5 text-sm text-red-300 hover:bg-red-950/70"
                   >
                     Delete
